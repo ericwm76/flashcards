@@ -14,7 +14,7 @@ Flashcards is an application I developed during the first week of my second modu
 
 3. In the terminal, navigate to the directory you just cloned down. In the directory, run the following command:
 
-node index.js
+`node index.js`
 
 You will be prompted for each question, have the opportunity to select an answer, and will be given feedback. You will be able to play through the entire deck of cards:
 
