@@ -42,11 +42,32 @@ describe('Round', function() {
     expect(round1.turns).to.eql(1);
   });
 
-  it('should change cards after a turn', function() {
+  it('should store incorrect guesses', function() {
+    expect(round1.incorrectGuesses).to.eql([]);
+    expect(round1.takeTurn('capybara')).to.eql('incorrect!');
+    expect(round1.incorrectGuesses.length).to.eql(1);
+    expect(round1.incorrectGuesses[0]).to.eql(1);
+  });
 
+  it('should change cards after a turn', function() {
+    expect(round1.takeTurn('capybara')).to.eql('incorrect!');
+    expect(round1.takeTurn('gallbladder')).to.eql('correct!');
   });
 
   it('should calculate the percent correct', function() {
+    round1.takeTurn('sea otter');
+    round1.takeTurn('spleen');
+    round1.takeTurn('playing with bubble wrap');
+  
+    expect(round1.calculatePercentCorrect()).to.equal(66);
+  });
 
+  it('should tell the user their percent correct', function() {
+
+    round1.takeTurn('sea otter');
+    round1.takeTurn('spleen');
+    round1.takeTurn('playing with bubble wrap');
+  
+    expect(round1.endRound()).to.equal('** Round over! ** You answered 66% of the questions correctly!');
   });
 });
