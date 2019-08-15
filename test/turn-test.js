@@ -4,46 +4,38 @@ const expect = chai.expect;
 const Card = require('../src/Card');
 const Turn = require('../src/Turn');
 
+var card, turn1, turn2, turn3;
+
+beforeEach(function() {
+  card = new Card({ id: 1, question: 'What is Robbie\'s favorite animal?', answers: ['sea otter', 'pug', 'capybara'], correctAnswer: 'sea otter' });
+  turn1 = new Turn();
+  turn2 = new Turn('sea otter', card);
+  turn3 = new Turn('pug', card);
+});
+
 describe('Turn', function() {
-
   it('should be a function', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter'); 
-    const turn = new Turn('pug', card);
-
     expect(Turn).to.be.a('function');
   });
 
   it('should be an instance of Turn', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter'); 
-    const turn = new Turn('pug', card);
-    expect(turn).to.be.an.instanceof(Turn);
+    expect(turn1).to.be.an.instanceof(Turn);
   });
 
   it('should return the user\'s guess', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter'); 
-    const turn = new Turn('pug', card);
-
-    expect(turn.returnGuess('pug')).to.equal('pug')
+    expect(turn3.returnGuess('pug')).to.equal('pug')
   }); 
 
   it('should return the Card', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter'); 
-    const turn = new Turn('pug', card);
-
-    expect(turn.returnCard()).deep.equal(card.id)
+    expect(turn3.returnCard()).to.eql(card.id)
   }); 
 
   it('should determine whether guess matches correct answer', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter'); 
-    const turn = new Turn('pug', card);
-
-    expect(turn.evaluateGuess()).deep.equal(false);
+    expect(turn3.evaluateGuess()).to.eql(false);
   }); 
 
-    it('should tell the user if their guess is correct', function() {
-    const card = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter'); 
-    const turn = new Turn('pug', card);
-
-    expect(turn.giveFeedback()).deep.equal('incorrect!');
+  it('should tell the user if their guess is correct', function() {
+    expect(turn2.giveFeedback()).to.eql('correct!');
+    expect(turn3.giveFeedback()).to.eql('incorrect!');
   }); 
 });
